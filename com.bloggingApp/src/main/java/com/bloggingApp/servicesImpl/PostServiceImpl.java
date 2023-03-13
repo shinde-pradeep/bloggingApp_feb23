@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService{
 	public PostDto createPost(PostDto postDto, Long userId, Integer cateId) {
 
 	  	User user         = this.userRepo.findById(userId).orElseThrow(()->new ResourceNotFoundExceptionnn("user","user id", userId));
-		Category category = this.categoryRepo.findById(cateId).orElseThrow(()->new ResourceNotFoundExceptionnn("cat","cate id", cateId));
+		Category category = this.categoryRepo.findById(cateId).orElseThrow(()->new ResourceNotFoundExceptionnn("cate","cate id", cateId));
 	
 		Post post = this.modelMapper.map(postDto, Post.class);
 		

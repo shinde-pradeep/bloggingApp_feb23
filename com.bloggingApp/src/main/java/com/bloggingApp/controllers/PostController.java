@@ -1,4 +1,4 @@
-package com.bloggingApp.configuration;
+package com.bloggingApp.controllers;
 
 import java.util.List;
 
@@ -32,8 +32,9 @@ public class PostController {
 
 //http://localhost:8083/api/user/1/category/1/post	
 	@PostMapping("/user/{userId}/category/{cateId}/post")
-	public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable Long userId,
-			@PathVariable Integer cateId) {
+	public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto,
+			                                  @PathVariable Long userId,
+			                                  @PathVariable Integer cateId) {
 
 		PostDto createdPost = this.postService.createPost(postDto, userId, cateId);
 

@@ -1,4 +1,4 @@
-package com.bloggingApp.configuration;
+package com.bloggingApp.controllers;
 
 import java.util.List;
 
@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bloggingApp.configurations.BloggingAppConstants;
 import com.bloggingApp.entitiesDtos.UserDto;
 import com.bloggingApp.services.UserService;
 
@@ -61,14 +63,17 @@ public class UserController {
 	
 //4.get/find all users...............................	
 
-//http://localhost:8083/api/users/	
+//http://localhost:8083/api/users/?pNum=1&pSize=3	
 	@GetMapping("/")
-	public ResponseEntity<List<UserDto>> getAllUsers() {
+	public ResponseEntity<List<UserDto>> getAllUsers(
+			@RequestParam (value ="pNum",defaultValue =BloggingAppConstants.PAGE_NUMBER,required = false)Integer pNum,
+			@RequestParam (value ="pSize",defaultValue =BloggingAppConstants.PAGE_SIZE,required = false)Integer pSize) 
+	{
 	
-    List<UserDto> allUsers = this.userService.getAllUsers();
+    List<UserDto> allUsers = this.userService.getAllUsers(pNum,pSize);
     return new ResponseEntity<List<UserDto>> (allUsers,HttpStatus.OK);
 	
-		}
+	}
 	
 //5.delete users by id...............................	
 	

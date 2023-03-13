@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bloggingApp.entities.User;
@@ -73,10 +76,14 @@ public class UserServiceImpl implements UserService {
 //4.get/find all users...............................	
 
 	@Override
-	public List<UserDto> getAllUsers() {
+	public List<UserDto> getAllUsers(Integer pNum,Integer pSize) {
 		
-    List<User> allUsers= this.userRepo.findAll();
-    List<UserDto> allUsers_dto = allUsers.stream().map((user)->this.modelMapper.map(user,UserDto.class))
+		Pageable p= PageRequest.of(pNum,pSize);
+		
+	    Page<User> allPagesHavingUsers= this.userRepo.findAll(p);	
+        List<User> allUsers= allPagesHavingUsers.getContent();
+    
+        List<UserDto> allUsers_dto = allUsers.stream().map((user)->this.modelMapper.map(user,UserDto.class))
     		                                      .collect(Collectors.toList());
 
      return allUsers_dto;

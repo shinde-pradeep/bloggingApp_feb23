@@ -1,4 +1,4 @@
-package com.bloggingApp.configuration;
+package com.bloggingApp.controllers;
 
 import java.util.List;
 
